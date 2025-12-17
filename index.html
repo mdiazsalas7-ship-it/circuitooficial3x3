@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3x3 Aragua 2026 - Oficial</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+      :root {
+        --primary: #ff4500; /* Naranja Basket */
+        --dark: #0f172a; /* Fondo Oscuro */
+        --card-bg: #1e293b; /* Tarjetas */
+        --text-main: #f8fafc;
+        --accent: #0ea5e9; /* Azul Cyan */
+        --gold: #ffd700; /* Dorado FIBA */
+        --green: #00e676; /* Verde Clasificación */
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: var(--dark);
+        color: var(--text-main);
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+      }
+
+      /* PORTADA */
+      .hero {
+        position: relative;
+        height: 400px;
+        background-image: url('https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=1490&auto=format&fit=crop');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: flex-end;
+      }
+      .hero-overlay {
+        background: linear-gradient(
+          to top,
+          var(--dark) 10%,
+          rgba(15, 23, 42, 0.4) 50%,
+          transparent
+        );
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        padding-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        position: relative;
+      }
+
+      /* LOGOS EN ESQUINAS */
+      .logos-corners {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        box-sizing: border-box;
+        z-index: 100;
+      }
+
+      .corner-logo {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        border: 3px solid white;
+        background: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+        object-fit: contain;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 4px black;
+        margin-top: 5px;
+      }
+
+      .subtitle {
+        color: var(--primary);
+        font-weight: bold;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        line-height: 1.2;
+        max-width: 95%;
+        text-shadow: 1px 1px 2px black;
+      }
+
+      .container {
+        padding: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      /* TARJETAS */
+      .card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 25px;
+        border-left: 5px solid var(--primary);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      }
+      .card h2 {
+        margin-top: 0;
+        color: var(--primary);
+        border-bottom: 1px solid #334155;
+        padding-bottom: 10px;
+        font-size: 1.3rem;
+      }
+
+      /* IMAGENES */
+      .img-block {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 15px 0;
+        border: 1px solid #333;
+      }
+
+      /* LOGOS EN FILA (ABAJO) */
+      .logo-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        margin-top: 15px;
+      }
+      .logo-item {
+        width: 48%;
+        max-width: 160px;
+        height: auto;
+        border-radius: 8px;
+        border: 1px solid #444;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      /* SISTEMA DE COMPETENCIA */
+      .comp-flow {
+        text-align: center;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 15px;
+        border-radius: 8px;
+      }
+      .flow-step {
+        border: 1px solid #555;
+        padding: 10px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.05);
+        margin-bottom: 5px;
+      }
+      .flow-arrow {
+        font-size: 1.2rem;
+        color: var(--accent);
+        margin: 5px 0;
+        font-weight: bold;
+      }
+      .highlight-box {
+        background: rgba(0, 230, 118, 0.1);
+        border: 1px solid var(--green);
+        color: var(--green);
+        padding: 10px;
+        border-radius: 6px;
+        font-weight: bold;
+      }
+
+      /* PARTICIPANTES BOX */
+      .cat-box {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        gap: 10px;
+      }
+      .cat-item {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--accent);
+        border-radius: 8px;
+        padding: 10px;
+        width: 48%;
+        text-align: center;
+      }
+      .cat-year {
+        display: block;
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: white;
+      }
+      .cat-label {
+        font-size: 0.8rem;
+        color: #94a3b8;
+      }
+
+      /* CALENDARIO */
+      .schedule-box {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+      }
+      .day-badge {
+        flex: 1;
+        background: rgba(14, 165, 233, 0.15);
+        border: 1px solid var(--accent);
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .day-number {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: white;
+        display: block;
+      }
+      .day-label {
+        font-size: 0.7rem;
+        color: #94a3b8;
+        text-transform: uppercase;
+      }
+
+      /* TABLA EJES */
+      .axis-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+      .axis-table td {
+        padding: 12px 5px;
+        border-bottom: 1px solid #333;
+        font-size: 0.95rem;
+        vertical-align: top;
+      }
+      .zone-tag {
+        background: #333;
+        color: var(--accent);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 5px;
+      }
+      .muni-list {
+        display: block;
+        color: #cbd5e1;
+        font-size: 0.85rem;
+        margin-top: 3px;
+      }
+
+      /* BOTÓN CTA */
+      .btn-cta {
+        display: block;
+        width: 100%;
+        background-color: var(--primary);
+        color: white;
+        text-align: center;
+        padding: 18px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        margin-top: 30px;
+        box-shadow: 0 0 25px rgba(255, 69, 0, 0.5);
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .btn-cta:active {
+        transform: scale(0.95);
+      }
+
+      .footer {
+        text-align: center;
+        padding: 40px 20px;
+        font-size: 0.8rem;
+        color: #64748b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <div class="hero-overlay">
+        <div class="logos-corners">
+          <img
+            src="https://i.postimg.cc/fyq3J3kg/download.jpg"
+            class="corner-logo"
+            alt="Logo ABAE"
+          />
+          <img
+            src="https://i.postimg.cc/htny7Yzh/download.jpg"
+            class="corner-logo"
+            alt="Logo FVB"
+          />
+        </div>
+
+        <div class="subtitle">
+          DIRECCIÓN TÉCNICA DE LA ASOCIACIÓN DE BALONCESTO DEL ESTADO ARAGUA
+        </div>
+        <h1>Circuito Oficial<br />3x3 Aragua 2026</h1>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="card" style="border-left-color: #fff">
+        <h2 style="color: white">1. Participantes y Categorías</h2>
+        <p>
+          <strong>¿Quiénes participan?</strong><br />Exclusivamente Escuelas
+          afiliadas en Gesdeportiva.
+        </p>
+
+        <p style="margin-bottom: 5px"><strong>Categorías 2026:</strong></p>
+        <div class="cat-box">
+          <div class="cat-item">
+            <span class="cat-year">U13</span>
+            <span class="cat-label">Nacidos:<br />2013 - 2014</span>
+          </div>
+          <div class="cat-item" style="border-color: var(--primary)">
+            <span class="cat-year">U17</span>
+            <span class="cat-label">Nacidos:<br />2009 - 2012</span>
+          </div>
+        </div>
+
+        <div
+          style="
+            background: rgba(255, 69, 0, 0.1);
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 5px;
+            border-left: 3px solid var(--primary);
+          "
+        >
+          ⚠️ <strong>REGLA DE ORO:</strong> Máximo
+          <strong>2 Equipos</strong> por Escuela.
+        </div>
+      </div>
+
+      <div class="card" style="border-left-color: var(--green)">
+        <h2 style="color: var(--green)">2. Sistema de Clasificación</h2>
+        <div class="comp-flow">
+          <div class="flow-step">
+            <strong>FASE DE GRUPOS</strong><br />
+            <small>Formato Round Robin por Ejes</small>
+          </div>
+
+          <div class="flow-arrow">⬇️ SOLO CLASIFICAN 2 ⬇️</div>
+          <div class="highlight-box">
+            1° LUGAR (Campeón de Eje)<br />
+            2° LUGAR (Subcampeón)
+          </div>
+          <div class="flow-arrow">⬇️</div>
+
+          <div
+            class="flow-step"
+            style="
+              background: linear-gradient(45deg, #ff4500, #b91c1c);
+              border: none;
+            "
+          >
+            <strong style="color: white; font-size: 1.2rem">FINAL SIX</strong
+            ><br />
+            <small style="color: white">Sede Única: Mauricio Johnson</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left-color: var(--accent)">
+        <h2 style="color: var(--accent)">3. Tiempos de Juego</h2>
+        <div class="schedule-box">
+          <div class="day-badge">
+            <span class="day-label">FASE ZONAL</span>
+            <span class="day-number">2 DÍAS</span>
+            <small style="color: #cbd5e1">Sáb y Dom<br />(Eliminatoria)</small>
+          </div>
+          <div
+            class="day-badge"
+            style="
+              border-color: var(--primary);
+              background: rgba(255, 69, 0, 0.1);
+            "
+          >
+            <span class="day-label">GRAN FINAL</span>
+            <span class="day-number">1 DÍA</span>
+            <small style="color: #cbd5e1">Domingo de Cierre</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>4. Organización Territorial</h2>
+        <p>Descentralización operativa para cubrir los 18 Municipios:</p>
+
+        <img
+          src="https://i.postimg.cc/3wXZyymn/unnamed.jpg"
+          class="img-block"
+          alt="Mapa de Ejes Territoriales Aragua Futurista"
+        />
+
+        <table class="axis-table">
+          <tr>
+            <td>
+              <span class="zone-tag" style="color: #0ea5e9"
+                >EJE METROPOLITANO</span
+              ><br />
+              <strong>Sedes: Maracay / Turmero</strong>
+              <span class="muni-list"
+                >Girardot, MBI, Mariño, FLA, Libertador y Costa de Oro.</span
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="zone-tag" style="color: #ff6b00"
+                >EJE ESTE (AMPLIADO)</span
+              ><br />
+              <strong>Sedes: La Victoria / Cagua</strong>
+              <span class="muni-list"
+                >Sucre, Ribas, Bolívar, Revenga, Santos Michelena, Lamas y
+                Tovar.</span
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="zone-tag" style="color: #00e676">EJE SUR</span><br />
+              <strong>Sede: Villa de Cura</strong>
+              <span class="muni-list"
+                >Zamora, San Casimiro, San Sebastián, Urdaneta y
+                Camatagua.</span
+              >
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>5. Gestión Gesdeportiva</h2>
+        <p>
+          Plataforma oficial FVB. Los resultados suman al Ranking Nacional 2026.
+        </p>
+        <div style="text-align: center; margin-top: 15px">
+          <span style="font-size: 0.8rem; color: #94a3b8; letter-spacing: 1px"
+            >ALIANZA INSTITUCIONAL</span
+          >
+          <div class="logo-row">
+            <img
+              src="https://i.postimg.cc/fyq3J3kg/download.jpg"
+              class="logo-item"
+              alt="Logo Asociación"
+            />
+            <img
+              src="https://i.postimg.cc/htny7Yzh/download.jpg"
+              class="logo-item"
+              style="border-color: var(--accent)"
+              alt="Logo FVB"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left-color: var(--gold)">
+        <h2 style="color: var(--gold)">6. Reglamento FIBA 3x3</h2>
+        <img
+          src="https://i.postimg.cc/BngrDx4w/images.png"
+          class="img-block"
+          style="border-color: var(--gold)"
+          alt="Reglas FIBA"
+        />
+        <ul style="padding-left: 20px; color: #e2e8f0">
+          <li style="margin-bottom: 10px">
+            🚫 <strong>NO COACHING:</strong> Entrenadores sin intervención.
+          </li>
+          <li style="margin-bottom: 10px">
+            ⏱️ <strong>RELOJ:</strong> 12 segundos.
+          </li>
+          <li>⚡ <strong>FINAL:</strong> 21 Puntos o 10 minutos.</li>
+        </ul>
+      </div>
+
+      <button id="btn-approve" class="btn-cta">✅ APROBAR PROYECTO 2026</button>
+    </div>
+
+    <div class="footer">
+      © 2026 Asociación de Baloncesto del Estado Aragua<br />
+      Resolución Oficial 001-2026
+    </div>
+
+    <script>
+      document
+        .getElementById('btn-approve')
+        .addEventListener('click', function () {
+          Swal.fire({
+            title: '¿Confirmar Aprobación?',
+            text: 'Estás a punto de emitir tu voto oficial a favor del Circuito 3x3 Aragua 2026.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#FF4500',
+            cancelButtonColor: '#334155',
+            confirmButtonText: 'Sí, APROBAR',
+            cancelButtonText: 'Cancelar',
+            background: '#1e293b',
+            color: '#fff',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // --- CAMBIA ESTE NUMERO POR EL TUYO ---
+              // Ejemplo: 584121234567
+              let telefono = '584243740258';
+
+              let mensaje =
+                '✅ APROBADO: Doy mi voto a favor de la Resolución 001-2026 del Circuito 3x3 Aragua.';
+
+              let url = `https://wa.me/${telefono}?text=${encodeURIComponent(
+                mensaje
+              )}`;
+
+              window.open(url, '_blank');
+            }
+          });
+        });
+    </script>
+  </body>
+</html>
