@@ -105,22 +105,22 @@
             border: 1px solid #333;
         }
 
-        /* LOGOS EN FILA (ABAJO) - AJUSTADO PARA 3 LOGOS */
+        /* LOGOS EN FILA (ABAJO) */
         .logo-row {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px; /* Reducido el espacio ligeramente */
+            gap: 10px; 
             margin-top: 15px;
         }
         .logo-item {
-            width: 30%; /* AJUSTADO: Reducido de 48% a 30% para que quepan 3 */
+            width: 30%; 
             max-width: 120px;
             height: auto;
             border-radius: 8px;
             border: 1px solid #444;
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            background: white; /* Asegura fondo blanco para el nuevo logo transparente */
+            background: white; 
         }
 
         /* SISTEMA DE COMPETENCIA */
@@ -192,6 +192,21 @@
         .axis-table td { padding: 12px 5px; border-bottom: 1px solid #333; font-size: 0.95rem; vertical-align: top;}
         .zone-tag { background: #333; color: var(--accent); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; display: inline-block; margin-bottom: 5px;}
         .muni-list { display: block; color: #cbd5e1; font-size: 0.85rem; margin-top: 3px; }
+
+        /* LISTA PLATAFORMAS */
+        .tech-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+        .tech-list li {
+            background: rgba(255,255,255,0.05);
+            margin-bottom: 8px;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 3px solid #555;
+            font-size: 0.9rem;
+        }
 
         /* BOTÓN CTA */
         .btn-cta {
@@ -332,8 +347,20 @@
         </div>
 
         <div class="card">
-            <h2>5. Gestión Gesdeportiva</h2>
-            <p>Plataforma oficial FVB. Los resultados suman al Ranking Nacional 2026.</p>
+            <h2>5. Plataformas Oficiales</h2>
+            <p>Uso obligatorio de plataformas según la fase:</p>
+            
+            <ul class="tech-list">
+                <li style="border-left-color: var(--accent);">
+                    <strong>📋 GESDEPORTIVA (FVB):</strong><br>
+                    Uso exclusivo para el <strong>chequeo de jugadores</strong> y validación de Escuelas afiliadas a la Asociación.
+                </li>
+                <li style="border-left-color: var(--gold);">
+                    <strong>🌍 FIBA 3x3 MAKER:</strong><br>
+                    Se utilizará únicamente en la <strong>FASE FINAL</strong> para cargar resultados y sumar puntos al Ranking Mundial.
+                </li>
+            </ul>
+
             <div style="text-align: center; margin-top: 15px;">
                 <span style="font-size: 0.8rem; color: #94a3b8; letter-spacing: 1px;">ALIANZA INSTITUCIONAL</span>
                 <div class="logo-row">
